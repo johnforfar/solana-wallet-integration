@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Solana Wallet Integration Website</title>
+  </head>
+  <body>
+    <h1>Solana Wallet Integration Website</h1>
+    <p>Click the button to connect your Phantom wallet.</p>
+    <button id="connect-wallet-btn">Connect Wallet</button>
+
+    <script type="text/javascript">
+      const connectWalletBtn = document.getElementById('connect-wallet-btn');
+
+      // When the Connect Wallet button is clicked, prompt the user to connect their wallet
+      connectWalletBtn.addEventListener('click', async () => {
+        // Check if the Phantom wallet provider is installed
+        if (window.solana && window.solana.isPhantom) {
+          try {
+            // Request connection to the Phantom wallet
+            await window.solana.connect();
+            
+            // Retrieve the user's public key
+            const publicKey = await window.solana.publicKey.toString();
+
+            // Display the user's public key in the console
+            console.log('Connected to Phantom wallet:', publicKey);
+            
+            // Perform other wallet-related tasks here
+            
+          } catch (err) {
+            console.log('Failed to connect to Phantom wallet:', err);
+          }
+        } else {
+          console.log('Phantom wallet not detected');
+        }
+      });
+    </script>
+  </body>
+</html>
